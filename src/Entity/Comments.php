@@ -19,6 +19,14 @@ class Comments
     #[ORM\Column(type: 'datetime')]
     private $CREATEDAT;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user_id;
+
+    #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $product_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +52,30 @@ class Comments
     public function setCREATEDAT(\DateTimeInterface $CREATEDAT): self
     {
         $this->CREATEDAT = $CREATEDAT;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getProductId(): ?Product
+    {
+        return $this->product_id;
+    }
+
+    public function setProductId(?Product $product_id): self
+    {
+        $this->product_id = $product_id;
 
         return $this;
     }
