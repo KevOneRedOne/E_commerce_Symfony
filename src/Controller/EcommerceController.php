@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EcommerceController extends AbstractController
 {
-    #[Route('/ecommerce', name: 'app_ecommerce')]
+    #[Route('/', name: 'app_ecommerce')]
     public function index(): Response
     {
         return $this->render('ecommerce/index.html.twig', [
@@ -16,4 +17,13 @@ class EcommerceController extends AbstractController
         ]);
     }
     
+    #[Route('/product', name: 'app_product')]
+    public function product(ProductRepository $repo): Response
+    {
+        $produits = $repo->findAll();
+
+        return $this->render('product/product.html.twig', [
+            'produits' => $produits,
+        ]);
+    }
 }
