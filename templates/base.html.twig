@@ -24,10 +24,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/product">Liste des Produits</a>
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_product')}}">Liste des Produits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Mon Panier</a>
+                            <a class="nav-link active" href="/cart">
+                            Mon Panier
+                            {# Avec Twig, nous utilisons 'set' pour créer des variables #}
+                            
+                            {# Nous allons créer une variable nbProduits qui va recupérer le nb total de produits en session #}
+                            {% set nbProduits = app.session.get('qt') %}
+
+                            {# Pour récupérer un attr de session on utilise app.session #}
+                            {% if nbProduits > 0 %}
+                                <span class="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ nbProduits }}
+                                </span>
+                            {% endif %}
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/inscription">Inscription</a>
