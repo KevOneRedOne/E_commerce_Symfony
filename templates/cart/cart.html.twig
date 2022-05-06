@@ -19,10 +19,10 @@
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td>{{item.product.title}}</td>
-                        <td>{{item.product.price}}€</td>
+                        <td>{{item.product.NAME}}</td>
+                        <td>{{item.product.PRICE}}€</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.product.price * item.quantity}}€</td>
+                        <td>{{item.product.PRICE * item.quantity}}€</td>
                         <td>
                             <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-danger">
                                 <i class="fas fa-trash"></i>
