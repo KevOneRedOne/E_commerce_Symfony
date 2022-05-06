@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -48,19 +49,23 @@ class CartService
         // Sauvegarde de l'etat du panier
         $session->set('cart', $cart);
     }
-    
-    public function removeall()
+
+    public function removeItem($id)
     {
         $session = $this->rs->getSession();
         $cart = $session->get('cart', []);
+        if (!empty($cart[$id])) {
+            if ($cart[$id] > 1) {
+                $cart[$id] = $cart[$id] - 1;
+            } else {
+                unset($cart[$id]);
+            }
 
-        // si l'ID existe dans le panier, je le supprime du tableau via le unset()
-       
-        unset($cart);
-        
-        // Sauvegarde de l'etat du panier
+        }
         $session->set('cart', $cart);
+
     }
+
 
     public function getCartWithData()
     {

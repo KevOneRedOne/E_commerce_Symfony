@@ -26,12 +26,14 @@
                         <td>
                             <div class="d-flex">
                                 <div style="margin-right:5px;">
-                                    <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-success">
+                                {# Add #}
+                                    <a href=" {{path('cart_add', {id: item.product.id})}} " class="btn-sm btn-success">
                                         <i class="bi bi-plus"></i>
                                     </a>
                                 </div>
                                 <div>
-                                    <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-success">
+                                {# Delete #}
+                                    <a href=" {{path('cart_removeItem', {id: item.product.id})}} " class="btn-sm btn-success">
                                         <i class="bi bi-dash"></i>
                                     </a>
                                 </div>
