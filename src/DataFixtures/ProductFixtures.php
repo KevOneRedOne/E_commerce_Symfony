@@ -27,9 +27,10 @@ class ProductFixtures extends Fixture
            for ($j=1; $j <3 ; $j++) 
            { 
                $user = new User;
-               $user -> setEMAIL($faker->email())
-                     -> setUSERNAME($faker-> name())
-                     -> setPASSWORD($faker -> password());
+               $user -> setEmail($faker->email())
+                     -> setUsername($faker-> name())
+                     -> setLastname($faker->name())
+                     -> setPassword($faker -> password());
 
                $manager->persist($user);
 

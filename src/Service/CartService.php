@@ -48,6 +48,19 @@ class CartService
         // Sauvegarde de l'etat du panier
         $session->set('cart', $cart);
     }
+    
+    public function removeall()
+    {
+        $session = $this->rs->getSession();
+        $cart = $session->get('cart', []);
+
+        // si l'ID existe dans le panier, je le supprime du tableau via le unset()
+       
+        unset($cart);
+        
+        // Sauvegarde de l'etat du panier
+        $session->set('cart', $cart);
+    }
 
     public function getCartWithData()
     {
