@@ -12,6 +12,7 @@
                     <th>Produit</th>
                     <th>Prix</th>
                     <th>Quantité</th>
+                    <th> Ajout/Suppr.</th>
                     <th>Total</th>
                     <th></th>
                 </tr>
@@ -22,6 +23,22 @@
                         <td>{{item.product.NAME}}</td>
                         <td>{{item.product.PRICE}}€</td>
                         <td>{{item.quantity}}</td>
+                        <td>
+                            <div class="d-flex">
+                                <div style="margin-right:5px;">
+                                    <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-success">
+                                        <i class="bi bi-plus"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-success">
+                                        <i class="bi bi-dash"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        
+                        </td>
                         <td>{{item.product.PRICE * item.quantity}}€</td>
                         <td>
                             <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-danger">
@@ -33,10 +50,11 @@
             </tbody>
             <tfoot>
                 <tr>
+                    <td></td>
                     <td colspan="3" class="text-end">Total : </td>
                     <td>{{ total }}€</td>
                     <td>
-                        <a href=" " class="btn-sm btn-danger">
+                        <a href=" " class="btn-sm btn-danger text-end">
                             <i class="bi bi-slash-circle"></i>
                         </a>
                     </td>
