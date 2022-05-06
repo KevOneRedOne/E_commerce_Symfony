@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -14,7 +14,7 @@
         </div>
     {% endif %}
     <br>
-    <h1 class="h3 mb-3 font-weight-normal text-center">Se connecter</h1>
+    <h1 class="text-center">Connexion</h1>
     <br>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
@@ -38,7 +38,7 @@
     #}
     <div class="text-center">
         <button class="btn btn-lg btn-primary" type="submit">
-            Connexion
+            Se Connecter
         </button>
     </div>
 </form>
