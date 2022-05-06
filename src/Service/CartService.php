@@ -37,7 +37,7 @@ class CartService
         // dd(): Dump & Die = permet d'afficher des infos et de tuer l'exécution du code
     }
 
-    public function remove($id)
+    public function removeItem($id)
     {
         $session = $this->rs->getSession();
         $cart = $session->get('cart', []);
@@ -50,7 +50,7 @@ class CartService
         $session->set('cart', $cart);
     }
 
-    public function removeItem($id)
+    public function removeOneItem($id)
     {
         $session = $this->rs->getSession();
         $cart = $session->get('cart', []);
@@ -64,6 +64,16 @@ class CartService
         }
         $session->set('cart', $cart);
 
+    }
+
+    public function removeAll()
+    {
+        $session= $this->rs->getSession();
+        $cart = $session->get('cart', []);
+        if (!empty($cart)) {
+            unset($cart);
+        }
+        $session->set('cart', []);
     }
 
 

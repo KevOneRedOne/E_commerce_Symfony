@@ -33,7 +33,7 @@
                                 </div>
                                 <div>
                                 {# Delete #}
-                                    <a href=" {{path('cart_removeItem', {id: item.product.id})}} " class="btn-sm btn-success">
+                                    <a href=" {{path('cart_removeOneItem', {id: item.product.id})}} " class="btn-sm btn-success">
                                         <i class="bi bi-dash"></i>
                                     </a>
                                 </div>
@@ -43,7 +43,7 @@
                         </td>
                         <td>{{item.product.PRICE * item.quantity}}€</td>
                         <td>
-                            <a href=" {{path('cart_remove', {id: item.product.id})}} " class="btn-sm btn-danger">
+                            <a href=" {{path('cart_removeItem', {id: item.product.id})}} " class="btn-sm btn-danger">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
@@ -56,7 +56,7 @@
                     <td colspan="3" class="text-end">Total : </td>
                     <td>{{ total }}€</td>
                     <td>
-                        <a href=" " class="btn-sm btn-danger text-end">
+                        <a href=" {{path('cart_removeAll')}} " class="btn-sm btn-danger text-end">
                             <i class="bi bi-slash-circle"></i>
                         </a>
                     </td>

@@ -25,17 +25,24 @@ class CartController extends AbstractController
 
     }
 
-    #[Route("/cart/remove/{id}", name:"cart_remove")]
+    #[Route("/cart/removeItem/{id}", name:"cart_removeItem")]
     public function remove($id, CartService $cs)
     {
-        $cs->remove($id);
+        $cs->removeItem($id);
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route("/cart/removeItem/{id}", name:"cart_removeItem")]
+    #[Route("/cart/removeOneItem/{id}", name:"cart_removeOneItem")]
     public function removeItem($id, CartService $cs)
     {
-        $cs->removeItem($id);
+        $cs->removeOneItem($id);
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route("/cart/removeAll/", name:"cart_removeAll")]
+    public function removeAll(CartService $cs)
+    {
+        $cs->removeAll();
         return $this->redirectToRoute('app_cart');
     }
 
