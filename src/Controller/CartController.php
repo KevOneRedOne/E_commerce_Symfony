@@ -21,8 +21,9 @@ class CartController extends AbstractController
     public function add($id, CartService $cs)
     {
         $cs->add($id);
-        return $this->redirectToRoute('app_cart');
-
+        // return $this->redirectToRoute('app_cart');
+        return $this->redirectToRoute('app_product');
+        // return $this->render('product/product.html.twig');
     }
 
     #[Route("/cart/removeItem/{id}", name:"cart_removeItem")]
@@ -44,6 +45,12 @@ class CartController extends AbstractController
     {
         $cs->removeAll();
         return $this->redirectToRoute('app_cart');
+    }
+    #[Route("/cart/buy/", name:"cart_buy")]
+    public function buyProduct(CartService $cs)
+    {
+        $cs->removeAll();
+        return $this->render('cart/merci.html.twig');
     }
 
 }

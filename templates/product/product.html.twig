@@ -4,13 +4,12 @@
 
 {% block body %}
 
-    <h1 class="text-center my-3">Liste des Produits</h1>
+    <h1 class="text-center my-4">Liste des Produits</h1>
     <br>
-    <div class="row">        
+    <div class="row text-center">        
         {% for product in produits %}
-            
-            <div class="col-md-4">
-                <div class="card mb-3" style="width: 18rem; ">
+            <div class="col-md-3">
+                <div class="card mb-4" style="width: 18rem; ">
                     <h3 class="card-header"> {{product.NAME}} </h3>
                     <img src="{{product.IMAGE}}" alt="Image du produit">
                     <div class="card-body">

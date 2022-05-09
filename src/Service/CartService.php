@@ -60,10 +60,8 @@ class CartService
             } else {
                 unset($cart[$id]);
             }
-
         }
         $session->set('cart', $cart);
-
     }
 
     public function removeAll()
@@ -95,7 +93,6 @@ class CartService
             ];
             $qt+= $quantity;
         }
-        // dd($cartWithData);
         $session-> set('qt', $qt);
 
         return $cartWithData;
@@ -112,5 +109,7 @@ class CartService
         }
         return $total;
     }
+
+    
 }
 

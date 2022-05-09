@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Merci !{% endblock %}
+
+{% block body %}
+    <br>
+    <br>
+    <h1 class="text-center">Merci pour votre commande !</h1>
+    <br>
+    <br>
+    <p class="text-center">Si vous avez oublié de prendre un article, n'hesitez pas à retourner vers la boutique !</p>
+    <br>
+    <div class="text-center">
+        <button class="text-center btn btn-lg btn-primary btn-block"><a href=" {{ path('app_product') }}" style="text-decoration:none;color:white;"> Nos Produits</a></button>
+    </div>
+{% endblock %}

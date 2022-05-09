@@ -6,16 +6,16 @@
     <br>
     <h1 class="text-center">Mon Panier</h1>
     <br>
-    {# si j'ai des produits dans mon panier, j'affiche son contenu #}
     {% if items %}
         <table class="table">
             <thead>
                 <tr>
                     <th>Produit</th>
+                    <th></th>
                     <th>Prix</th>
-                    <th>Quantité</th>
-                    <th> Ajout/Suppr.</th>
-                    <th>Total</th>
+                    <th class="text-center">Quantité</th>
+                    <th class="text-center"> Ajout/Suppr.</th>
+                    <th class="text-end">TTC</th>
                     <th></th>
                 </tr>
             </thead>
@@ -23,30 +23,35 @@
                 {% for item in items %}
                     <tr>
                         <td>{{item.product.NAME}}</td>
-                        <td>{{item.product.PRICE}}€</td>
-                        <td>{{item.quantity}}</td>
                         <td>
-                            <div class="d-flex">
+                            <div class="text-center">
+                                <img class="img-fluid" src="{{item.product.IMAGE}}" style="max-width:25%;height:20%;"alt="Image du Produit">
+                            </div>
+                        </td>
+                        <td class="text-start">{{item.product.PRICE}}€</td>
+                        <td class="text-center">{{item.quantity}}</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
                                 <div style="margin-right:5px;">
                                 {# Add #}
                                     <a href=" {{path('cart_add', {id: item.product.id})}} " class="btn-sm btn-success">
-                                        <i class="bi bi-plus"></i>
+                                        <i class="bi bi-plus" title="Ajouter un produit"></i>
                                     </a>
                                 </div>
                                 <div>
                                 {# Delete #}
                                     <a href=" {{path('cart_removeOneItem', {id: item.product.id})}} " class="btn-sm btn-success">
-                                        <i class="bi bi-dash"></i>
+                                        <i class="bi bi-dash" title="Supprimer un produit"></i>
                                     </a>
                                 </div>
 
                             </div>
                         
                         </td>
-                        <td>{{item.product.PRICE * item.quantity}}€</td>
+                        <td class="text-end">{{item.product.PRICE * item.quantity}}€</td>
                         <td>
                             <a href=" {{path('cart_removeItem', {id: item.product.id})}} " class="btn-sm btn-danger">
-                                <i class="bi bi-trash"></i>
+                                <i class="bi bi-trash" title="Supprimer le produit"></i>
                             </a>
                         </td>
                     </tr>
@@ -55,11 +60,12 @@
             <tfoot>
                 <tr>
                     <td></td>
-                    <td colspan="3" class="text-end">Total : </td>
-                    <td>{{ total }}€</td>
+                    <td></td>
+                    <td colspan="3" class="text-end"> <h5> TOTAL = </h5> </td>
+                    <td class="text-end"><h5>{{ total }}€</h5></td>
                     <td>
-                        <a href=" {{path('cart_removeAll')}} " class="btn-sm btn-danger text-end">
-                            <i class="bi bi-slash-circle"></i>
+                        <a href=" {{path('cart_removeAll')}} " class="btn-sm btn-danger ">
+                            <i class="bi bi-slash-circle" title="Supprimer le panier"></i>
                         </a>
                     </td>
                 </tr>
@@ -67,11 +73,14 @@
         </table>
         <br>
         <div class="text-center">
-            <button class="card-link btn btn-success" style="width:30%;"> Paiement du Panier</button>
+            <button class="card-link btn btn-success" style="width:30%;"><a href=" {{ path('cart_buy') }}" style="text-decoration:none;color:white;">Paiement du Panier</a></button>
         </div>
     {% else %}
-        <p>Mon panier est vide.</p>
-        <a href=" {{ path('app_product') }}"> Remplissez votre panier ici !</a>
+        <p class="text-center">Votre panier est vide.</p>
+        <br>
+        <div class="text-center">
+            <button class="text-center btn btn-lg btn-primary btn-block"><a href=" {{ path('app_product') }}" style="text-decoration:none;color:white;"> Remplissez votre panier ici !</a></button>
+        </div>
     {% endif %}
 
 {% endblock %}
