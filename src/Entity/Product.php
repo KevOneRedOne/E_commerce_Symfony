@@ -2,17 +2,19 @@
 
 namespace App\Entity;
 
-
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
-
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[Vich\Uploadable]
+
+/**
+ * @Vich\Uploadable
+ */
 class Product
 {
     #[ORM\Id]
@@ -21,8 +23,12 @@ class Product
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min:10,max:255,minMessage:"Pas assez de caractères. Le titre doit comporter au moins {{limit}} caractères.")]
+    #[Assert\NotBlank(message:"Un produit doit avoir un nom.")]
     private $NAME;
 
+    #[Assert\Length(min:10,minMessage:"Pas assez de caractères. La description doit contenir au moins {{limit}} caractères.")]
+    #[Assert\NotBlank(message:"Un produit doit avoir une description.")]
     #[ORM\Column(type: 'text')]
     private $DESCRIPTION;
 
@@ -40,8 +46,13 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private $user_id;
 
-    #[Vich\UploadableField(mapping:"produits_image", fileNameProperty:"image")]
+   /**
+    * @Vich\UploadableField(mapping="products_images",fileNameProperty="image")
+    */
     private $imageFile;
+
+    #[ORM\Column(type: 'datetime')]
+    private $updated_at;
 
     
 
@@ -91,7 +102,7 @@ class Product
         return $this->IMAGE;
     }
 
-    public function setIMAGE(string $IMAGE): self
+    public function setIMAGE(?string $IMAGE): self
     {
         $this->IMAGE = $IMAGE;
 
@@ -122,25 +133,12 @@ class Product
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->NAME;
-    }
-
-    /**
-     * Get the value of imageFile
-     */ 
-    public function getImageFile()
+    public function getImageFile() : ?File
     {
         return $this->imageFile;
     }
 
-    /**
-     * Set the value of imageFile
-     *
-     * @return  self
-     */ 
-    public function setImageFile($imageFile)
+    public function setImageFile(?File $imageFile = null) : self
     {
         $this->imageFile = $imageFile;
         if ($this->imageFile instanceof UploadedFile) {
@@ -150,4 +148,20 @@ class Product
     }
 
 
+    public function __toString()
+    {
+        return $this->NAME;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
 }

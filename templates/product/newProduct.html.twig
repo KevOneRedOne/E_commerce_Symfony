@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Produit{% endblock %}
+
+{% block body %}
+    <br>
+    <h1 class="text-center">Vendre un produit</h1>
+    <br>
+
+    {{ form_start(newProduct) }}
+        {{form_row(newProduct.NAME, {
+            label:'Titre du produit'
+        })}}
+        {{form_row(newProduct.DESCRIPTION, {
+            label:'Description du produit'
+        })}}
+        {{ form_row(newProduct.PRICE, {
+            label: 'Prix'
+        }) }}
+        {{ form_row(newProduct.imageFile, {
+            label: 'Image'
+        }) }}
+        {{ form_row(newProduct.category_id, {
+            label: 'Catégorie'
+        }) }}
+        
+        {# <img src="{{ asset('images/produits/' ~ newProduct.imageFile)}}" alt=""> #}
+       
+
+        <br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Ajouter le produit</button>
+        </div>
+
+    {{ form_end(newProduct) }}
+
+{% endblock %}

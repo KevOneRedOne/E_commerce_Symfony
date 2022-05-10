@@ -7,7 +7,7 @@ use App\Entity\Product;
 use App\Form\ContactType;
 use App\Form\SearchProductFormType;
 use Webmozart\Assert\Assert;
-use App\Form\addProductType;
+use App\Form\AddProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Notification\ContactNotification;
@@ -25,6 +25,10 @@ class EcommerceController extends AbstractController
             'controller_name' => 'EcommerceController',
         ]);
     }
+
+    // ----------------------------------------------------------------------------------
+    // ----------------------------------Product-----------------------------------------
+    // ----------------------------------------------------------------------------------
     
     #[Route('/product', name: 'app_product')]
     public function product(ProductRepository $repo, Request $request): Response
@@ -42,14 +46,15 @@ class EcommerceController extends AbstractController
             $produits = $repo->findBy(array(),array('NAME' => 'ASC'));
         }
 
-
-
         return $this->render('product/product.html.twig', [
             'produits' => $produits,
             'SearchProductForm'=> $form->createView()
         ]);
     }
 
+    // ----------------------------------------------------------------------------------
+    // ----------------------------------CONTACT-----------------------------------------
+    // ----------------------------------------------------------------------------------
     
     #[Route("/contact", name: "app_contact")]
     public function contact(Request $request, EntityManagerInterface $manager, ContactNotification $cn)
@@ -67,7 +72,7 @@ class EcommerceController extends AbstractController
             $this->addFlash('success', 'Votre message a bien été envoyé !');
             // addflash() permet de créer des messages de notifications
             // elle prend en param le type du msg et le contenu du msg
-            return $this->redirectToRoute('app_contact');  // permet de recharger la page et vider les champs du form
+            return $this->redirectToRoute('app_contact'); 
         }
 
         return $this->render("contact/contact.html.twig", [
@@ -75,26 +80,36 @@ class EcommerceController extends AbstractController
         ]);
     }
 
-    #[Route('/add-product', name: 'app_add')]
-    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    // ----------------------------------------------------------------------------------
+    // --------------------------------New PRODUCT---------------------------------------
+    // ----------------------------------------------------------------------------------
+
+    #[Route('/product/newProduct', name: 'app_newProduct')]
+    public function newProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null): Response
     {
+        if (!$product) 
+        {
+            $product = new Product;
+ 
+            // $product -> setCreatedAt(new \DateTime());
+            // on ajoute la date à l'insertion
+        }
+
+
         $product = new Product();
         $form = $this->createForm(AddProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            
 
             $entityManager->persist($product);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_product');
         }
 
-        return $this->render('product/addProduct.html.twig', [
-            'addProduct' => $form->createView(),
+        return $this->render('product/newProduct.html.twig', [
+            'newProduct' => $form->createView(),
         ]);
     }
 }
