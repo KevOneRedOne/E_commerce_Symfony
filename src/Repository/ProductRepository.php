@@ -47,6 +47,21 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function getProductByName($input)
+    {
+        // creatQueryBuilder() permet de créer une requête SQL
+        // Elle prend en paramètre un alias qui représente la table.
+        return $this->createQueryBuilder('p')
+                    ->andWhere('p.NAME LIKE :val')
+                    ->setParameter('val',"%$input%")
+                    // xxx% : Doit commencer par 'xxx'
+                    // %xxx : Doit finir par 'xxx'
+                    // %xxx% : Doit contenir 'xxx'
+                    ->orderBy('p.NAME', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

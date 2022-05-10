@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Form\SearchProductFormType;
 use Webmozart\Assert\Assert;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,12 +25,26 @@ class EcommerceController extends AbstractController
     }
     
     #[Route('/product', name: 'app_product')]
-    public function product(ProductRepository $repo): Response
+    public function product(ProductRepository $repo, Request $request): Response
     {
-        $produits = $repo->findBy(array(),array('NAME' => 'ASC'));
+        $form = $this->createForm(SearchProductFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->get('NAME')->getData();
+            $produits = $repo->getProductByName($data);
+        } 
+        else
+        {
+            $produits = $repo->findBy(array(),array('NAME' => 'ASC'));
+        }
+
+
 
         return $this->render('product/product.html.twig', [
             'produits' => $produits,
+            'SearchProductForm'=> $form->createView()
         ]);
     }
 

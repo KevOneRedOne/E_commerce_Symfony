@@ -5,11 +5,27 @@
 {% block body %}
 
     <h1 class="text-center my-4">Liste des Produits</h1>
-    <br>
     {% for message in app.flashes('success') %}
 		<div class="alert alert-success text-center">{{ message }}</div>
 	{% endfor %}
-    
+    {% block form %}
+        {{form_start(SearchProductForm)}}
+
+            <div class="d-flex justify-content-center justify-content-between align-items-center">
+                {{form(SearchProductForm, {
+                    'attr': {
+                        'style' : 'width:100%'
+                    }
+                })}} 
+                <button type="submit" class="btn btn-primary" style="margin-bottom:17px; margin-left:10px">Recherche</button>
+            </div>
+
+        {{form_end(SearchProductForm)}}
+        <br>
+        <hr>
+        <br>
+    {% endblock %}
+
     <div class="row text-center">        
         {% for product in produits %}
             <div class="col-md-3">
