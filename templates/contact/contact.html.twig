@@ -1,23 +1,37 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Contactez-nous{% endblock %}
+
 {% block body %}
 
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success text-center">{{ message }}</div>
-	{% endfor %}
+	<br>
+    <h1 class="text-center">Ecrivez votre message.</h1>
+    <br>
+	<div class="">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success text-center">{{ message }}</div>
+		{% endfor %}
 
-	{{ form_start(formContact) }}
+		{{ form_start(formContact) }}
+		{{ form_row(formContact.lastname, {
+			label: "Nom"
+		}) }}
+		{{ form_row(formContact.firstname, {
+			label: "Prénom"
+		}) }}
+		{{ form_row(formContact.email) }}
+		{{ form_row(formContact.content, {
+			label: "Votre message",
+			attr : {
+				style : "height:200px;"
+			}
+		}) }}
+		<br>
+		<div class="text-center">
+			<button type="submit" class="btn btn-lg btn-primary">Envoyer</button>
+		</div>
+	</div>
 
-	{{ form_row(formContact.firstname, {
-    label: "Prénom"
-}) }}
-	{{ form_row(formContact.lastname, {
-    label: "Nom"
-}) }}
-	{{ form_row(formContact.email) }}
-	{{ form_row(formContact.content) }}
-
-	<button type="submit" class="btn btn-primary">Envoyer</button>
 
 	{{ form_end(formContact) }}
 

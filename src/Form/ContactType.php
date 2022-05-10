@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactType extends AbstractType
 {
@@ -15,7 +16,7 @@ class ContactType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('email')
-            ->add('content');
+            ->add('content', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
