@@ -26,7 +26,7 @@ class EcommerceController extends AbstractController
     #[Route('/product', name: 'app_product')]
     public function product(ProductRepository $repo): Response
     {
-        $produits = $repo->findAll();
+        $produits = $repo->findBy(array(),array('NAME' => 'ASC'));
 
         return $this->render('product/product.html.twig', [
             'produits' => $produits,
