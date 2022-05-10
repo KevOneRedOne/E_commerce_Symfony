@@ -5,7 +5,7 @@ easy_admin:
       form:
         fields:
         - {property: 'email'}
-        - {property: 'firstname'}
+        - {property: 'usename'}
         - {property: 'lastname'}
         - {property: 'roles', type: "collection"}
 
@@ -17,6 +17,6 @@ easy_admin:
         
         fields:
         - {property: 'email'}
-        - {property: 'firstname'}
+        - {property: 'usename'}
         - {property: 'lastname'}
         - {property: 'roles'}
