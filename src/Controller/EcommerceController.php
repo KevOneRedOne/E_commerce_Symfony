@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Product;
 use App\Form\ContactType;
 use App\Form\SearchProductFormType;
 use Webmozart\Assert\Assert;
+use App\Form\addProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Notification\ContactNotification;
@@ -70,6 +72,29 @@ class EcommerceController extends AbstractController
 
         return $this->render("contact/contact.html.twig", [
             'formContact' => $form->createView()
+        ]);
+    }
+
+    #[Route('/add-product', name: 'app_add')]
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(AddProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            
+
+            $entityManager->persist($product);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app_product');
+        }
+
+        return $this->render('product/addProduct.html.twig', [
+            'addProduct' => $form->createView(),
         ]);
     }
 }
