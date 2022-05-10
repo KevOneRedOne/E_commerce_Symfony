@@ -6,6 +6,10 @@
 
     <h1 class="text-center my-4">Liste des Produits</h1>
     <br>
+    {% for message in app.flashes('success') %}
+		<div class="alert alert-success text-center">{{ message }}</div>
+	{% endfor %}
+    
     <div class="row text-center">        
         {% for product in produits %}
             <div class="col-md-3">

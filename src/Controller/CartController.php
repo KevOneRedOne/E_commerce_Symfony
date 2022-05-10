@@ -21,6 +21,7 @@ class CartController extends AbstractController
     public function add($id, CartService $cs)
     {
         $cs->add($id);
+        $this->addflash('success', "Votre produit a ajouté avec success dans votre panier !");
         return $this->redirectToRoute('app_product');
     }
 
