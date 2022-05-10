@@ -29,6 +29,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $username;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $lastname;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,7 +127,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function setLastname(string $lastname): self
+    
+
+    /**
+     * Get the value of lastname
+     */ 
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastname
+     *
+     * @return  self
+     */ 
+    public function setLastname($lastname)
     {
         $this->lastname = $lastname;
 
