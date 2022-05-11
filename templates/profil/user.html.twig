@@ -1,8 +1,40 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Mon Profil{% endblock %}
+
 {% block body %}
-
-    <h1>Mon Profil</h1>
-
+<div class="container mt-3">
+    <br>
+    <h1 class="text-center mb-3">Bonjour {{app.user.username}} !</h1>
+    <hr>
+    <br>
+    <div class="shadow-lg ml-5 mr-5 ombre p-3 rounded">
+        <h5 class="text-center">Vos produits en vente :</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom du Produit</th>
+                    <th>Catégorie</th>
+                    <th>Description</th>
+                    <th class="text-end">Prix</th>
+                    <th class="text-end"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>                    
+                    <td class="text-end">
+                        <a href=" # " class="btn btn-primary">
+                            Page du produit
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% endblock %}
