@@ -113,9 +113,7 @@ class EcommerceController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_product', [
-                // 'id' => $product->getId()
-            ]);
+            return $this->redirectToRoute('app_product');
         }
 
         return $this->render('product/newProduct.html.twig', [
@@ -141,7 +139,6 @@ class EcommerceController extends AbstractController
         }
         return $this->render('product/editProduct.html.twig', [
             'editProduct' => $form->createView(),
-            // 'editMode' => $product-> getId() !== null,
         ]);
     }
 
