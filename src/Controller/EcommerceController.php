@@ -122,11 +122,14 @@ class EcommerceController extends AbstractController
     // ----------------------------------------------------------------------------------
 
     #[Route("/profil", name:"app_userprofil")]
-    public function userProfi(?UserInterface $user)
+    public function userProfi(ProductRepository $repo, ?UserInterface $user)
     {
+        $productsUser = $repo->findAll();
+
         return $this->render('profil/user.html.twig', [
             'controller_name' => 'EcommerceController',
-            'user' => $user
+            'user' => $user,
+            'produits' => $productsUser
         ]);
     }
 

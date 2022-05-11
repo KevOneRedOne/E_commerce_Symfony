@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -61,6 +62,19 @@ class ProductRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+
+    // public function getProductByUserID($userID)
+    // {
+    //     // $user.getId();
+    //     return $this->createQueryBuilder('p')
+    //                 ->innerJoin('p.user', 'u')
+    //                 ->where('u.id = p.user_id')
+    //                 ->andWhere('p.user_id LIKE :val ')
+    //                 ->setParameter('val',$userID)
+    //                 ->orderBy('p.NAME', 'ASC')
+    //                 ->getQuery()
+    //                 ->getResult();
+    // }
 
     // /**
     //  * @return Product[] Returns an array of Product objects

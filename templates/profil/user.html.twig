@@ -21,17 +21,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>                    
-                    <td class="text-end">
-                        <a href=" # " class="btn btn-primary">
-                            Page du produit
-                        </a>
-                    </td>
-                </tr>
+                {% for pUser in produits %}
+                    {# {% if pUser.UserID == app.user.id %} #}
+                    
+                        <tr>
+                            <td>{{pUser.NAME}}</td>
+                            <td>{{pUser.categoryID}}</td>
+                            <td>{{pUser.description|slice(0,30)| raw}}...</td>
+                            <td>{{pUser.PRICE}}</td>                    
+                            <td class="text-end">
+                                <a href=" {{ path('app_details', {id: pUser.id}) }}" class="btn btn-primary">
+                                    Page du produit
+                                </a>
+                            </td>
+                        </tr>
+                    {# {% endif %} #}
+                {% endfor %}
             </tbody>
         </table>
     </div>
