@@ -55,7 +55,7 @@ class EcommerceController extends AbstractController
     #[Route("/product/details/{id}", name:'app_details')]
     public function detailsProduct(Product $product)
     {
-        return $this-> render("detailsProduct.html.twig", [
+        return $this-> render("product/detailsProduct.html.twig", [
             'produits' => $product
         ]);
     }
@@ -99,9 +99,7 @@ class EcommerceController extends AbstractController
         if (!$product) 
         {
             $product = new Product;
- 
             $product -> setUpdatedAt(new \DateTime());
-            // on ajoute la date à l'insertion
         }
         dump($request);
 

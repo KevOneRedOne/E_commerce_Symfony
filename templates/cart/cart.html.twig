@@ -25,7 +25,7 @@
                         <td>{{item.product.NAME}}</td>
                         <td>
                             <div class="text-center">
-                                <img class="img-fluid" src="{{item.product.IMAGE}}" style="max-width:25%;height:20%;"alt="Image du Produit">
+                                <img class="img-fluid" src="{{asset('images/products/' ~ item.product.IMAGE)}}" style="max-width:25%;height:20%;"alt="Image du Produit">
                             </div>
                         </td>
                         <td class="text-start">{{item.product.PRICE}}€</td>

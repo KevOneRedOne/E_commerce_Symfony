@@ -1,21 +1,31 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
+    <br>
+    <h1 class="text-center">Fiche du Produit : "{{ produits.NAME }}"</h1>
+    <br>
     <section class="row articles">
-        <article class="col-md-6 mx-auto text-center border border-dark mb-3 p-3 mt-3 mr-1">
-            <h2>{{ product.NAME }}</h2>
-            <div class="metadata">Ecrit le {{product.updated_at | date("d/m/Y à H:i:s")}} 
-                dans la catégorie {{ product.category.title }}
-            </div>
-            <div class="content">
-                <img src="{{asset('images/articles/'~produits.image)}}" class="img-fluid">
-                {# asset() permet de récupérer un fichier dans le dosseir public #}
+        <article class="col-md-8 mx-auto text-center shadow border-dark mb-4 p-4 mt-4 mr-1" style="border-radius:20px;">
+            <h4>{{ produits.NAME }}</h4>
+            <hr>
+            <img src="{{asset('images/products/' ~ produits.IMAGE)}}" class="img-fluid">
+            <div class="card-body text-end"> 
+                <h5>{{produits.PRICE}}€</h5>
                 <hr>
-                {{product.content | raw}}
             </div>
-            <div class="card-body text-end">
-                <a href=" {{path('cart_add', {id: product.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
+            <div class="card-body text-center">
+                {{produits.description | raw}}
+            </div>
+            <hr>
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5><span class="badge btn-success">{{ produits.categoryID.Title }}</span></h5>
+                </div>
+                <div class="metadata">
+                    Ecrit par <b>{{ produits.userID.username}}</b>
+                    <small>le {{produits.updatedAt | date("d/m/Y à H:i:s")}}</small>
+                </div>
+                <a href=" {{path('cart_add', {id: produits.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
             </div>
         </article>
     </section>

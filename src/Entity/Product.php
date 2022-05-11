@@ -25,12 +25,8 @@ class Product
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Length(min:10,max:255,minMessage:"Pas assez de caractères. Le titre doit comporter au moins {{limit}} caractères.")]
-    #[Assert\NotBlank(message:"Un produit doit avoir un nom.")]
     private $NAME;
 
-    #[Assert\Length(min:10,minMessage:"Pas assez de caractères. La description doit contenir au moins {{limit}} caractères.")]
-    #[Assert\NotBlank(message:"Un produit doit avoir une description.")]
     #[ORM\Column(type: 'text')]
     private $DESCRIPTION;
 
@@ -159,7 +155,7 @@ class Product
         
         return $this;
     }
-    
+
     public function __toString()
     {
         return $this->NAME;

@@ -10,7 +10,6 @@
 	{% endfor %}
     {% block form %}
         {{form_start(SearchProductForm)}}
-
             <div class="d-flex justify-content-center justify-content-between align-items-center">
                 {{form(SearchProductForm, {
                     'attr': {
@@ -19,29 +18,28 @@
                 })}} 
                 <button type="submit" class="btn btn-primary" style="margin-bottom:17px; margin-left:10px">Recherche</button>
             </div>
-
         {{form_end(SearchProductForm)}}
         <br>
         <hr>
         <br>
     {% endblock %}
 
-    <div class="row text-center">        
+    <div class="row justify-content-between gx-5 gy-5">        
         {% for product in produits %}
-            <div class="col-md-3">
-                <div class="card mb-4" style="width: 18rem; ">
-                    <img src="{{ asset('images/products/' ~ product.IMAGE)}}" class="" style="" alt="Image du produit">
-                    <h3 class="card-header"> {{product.NAME}} </h3>
+            <div class="col-md-4 mx-auto text-center p-3 mb-3 p-3 mt-3 mr-1" >
+                <div class="card shadow" style="border-radius:10px;">
+                    <img src="{{ asset('images/products/' ~ product.IMAGE)}}" class="img-fluid card-img-top" style="border-radius:10px;"alt="Image du produit"/>
                     <div class="card-body">
-                        <p class="card-text text-end fw-bold">{{product.PRICE}}€</p>
+                        <h5 class="card-title">{{product.NAME}}</h5>
+                        <p class="card-text text-reset">{{product.description |slice(0,30)| raw}}... </p>
                     </div>
-                    <div class="card-body text-end">
-                        <a href=" {{path('cart_add', {id: product.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
-                    </div>
-                    <div class="metadata">Ecrit le 
-                        {# {{product.updated_at | date("d/m/Y à H:i:s")}}  #}
-                        {# dans la catégorie {{product.category.title}} #}
-        
+                    <ul class="list-group list-group-light list-group-small">
+                        <li class="list-group-item px-4"><b>{{product.PRICE}} €</b></li>
+                        <li class="list-group-item px-4">{{product.categoryID.title}}</li>
+                        <li class="list-group-item px-4">Posté le {{product.updatedAt | date("d/m/Y à H:i:s")}} </li>
+                    </ul>
+                    <div class="card-body">
+                        <a href=" {{path('app_details', {id: product.id})}}" class="card-link btn btn-primary">Voir le produit</a>
                     </div>
                 </div>
             </div>
