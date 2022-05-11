@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\ContactType;
 use App\Form\SearchProductFormType;
 use Webmozart\Assert\Assert;
@@ -11,10 +12,12 @@ use App\Form\AddProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Notification\ContactNotification;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class EcommerceController extends AbstractController
 {
@@ -94,21 +97,20 @@ class EcommerceController extends AbstractController
 
     #[Route('/product/newProduct', name: 'app_newProduct')]
     #[Route('/product/edit/{id}', name: 'app_edit')]
-    public function newProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null): Response
+    public function newProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null, ?UserInterface $user): Response
     {
         if (!$product) 
         {
             $product = new Product;
-            $product -> setUpdatedAt(new \DateTime());
+            $product -> setUpdatedAt(new \DateTime());        
         }
-        dump($request);
 
         $product = new Product();
         $form = $this->createForm(AddProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $product->setUserId($user);
             $entityManager->persist($product);
             $entityManager->flush();
 

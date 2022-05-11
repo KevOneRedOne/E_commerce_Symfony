@@ -23,12 +23,7 @@ class AddProductType extends AbstractType
             ->add('category_id', EntityType::class, [ 
                 'class' => Category::class, 
                 'choice_label' => 'title',
-            ])
-            ->add('user_id', EntityType::class, [ 
-                'class' => User::class, 
-                'choice_label' => 'username',
             ]);
- 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
