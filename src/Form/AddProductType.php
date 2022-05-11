@@ -20,9 +20,13 @@ class AddProductType extends AbstractType
             ->add('DESCRIPTION')
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('PRICE')
-            ->add('category_id', EntityType::class, [ // je précise le champ 'category' est une entité
-                'class' => Category::class, // j'indique le nom de l'entité
+            ->add('category_id', EntityType::class, [ 
+                'class' => Category::class, 
                 'choice_label' => 'title',
+            ])
+            ->add('user_id', EntityType::class, [ 
+                'class' => User::class, 
+                'choice_label' => 'username',
             ]);
  
     }

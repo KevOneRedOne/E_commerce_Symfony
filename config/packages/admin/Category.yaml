@@ -2,13 +2,14 @@ easy_admin:
   entities:
     Category:
       class: App\Entity\Category
+      label: 'Catégories'
       form:
         fields:
-        - {property: 'title'}
+        - {property: 'title', label: "Nom de la Catégorie"}
       list:
         actions:
           - { name: "edit", icon: "pencil", label: false, css_class: "btn btn-primary" }
           - { name: "delete", icon: "trash", label: false, css_class: "btn btn-danger" }
         
         fields:
-        - {property: 'title'}
+        - {property: 'title', label: "Nom de la Catégorie"}

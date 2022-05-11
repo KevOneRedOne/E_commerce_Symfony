@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
+use App\Entity\Category;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Repository\ProductRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -53,7 +55,6 @@ class Product
 
     #[ORM\Column(type: 'datetime')]
     private $updated_at;
-
     
 
     public function getId(): ?int
@@ -147,21 +148,20 @@ class Product
         return $this;
     }
 
-
-    public function __toString()
-    {
-        return $this->NAME;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
-
+    
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
-
+        
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->NAME;
     }
 }

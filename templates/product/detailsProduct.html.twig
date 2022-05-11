@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <section class="row articles">
+        <article class="col-md-6 mx-auto text-center border border-dark mb-3 p-3 mt-3 mr-1">
+            <h2>{{ product.NAME }}</h2>
+            <div class="metadata">Ecrit le {{product.updated_at | date("d/m/Y à H:i:s")}} 
+                dans la catégorie {{ product.category.title }}
+            </div>
+            <div class="content">
+                <img src="{{asset('images/articles/'~produits.image)}}" class="img-fluid">
+                {# asset() permet de récupérer un fichier dans le dosseir public #}
+                <hr>
+                {{product.content | raw}}
+            </div>
+            <div class="card-body text-end">
+                <a href=" {{path('cart_add', {id: product.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
+            </div>
+        </article>
+    </section>
+
+    <h2 class="text-center mx-auto m-3">Commentaires</h2>
+    
+    {# <section id="commentaire" class="col-md-10 mx-auto">
+        {% for comment in article.comments %}
+            <div class="comment">
+                <div class="row">
+                    <div class="col-md-3">
+                        {{comment.author}} (<small>{{comment.createdAt|date('d/m/Y à H:i')}}</small>)
+                    </div>
+                    <div class="col-md-9">
+                        {{comment.content|raw}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </section> #}
+
+
+
+{% endblock %}

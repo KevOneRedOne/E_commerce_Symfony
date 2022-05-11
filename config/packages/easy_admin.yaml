@@ -1,46 +1,17 @@
-
-  
-easy_admin: 
-  site_name: '<b>BackOffice</b>'
-
-  design: 
-
-  # brand_color: '#1ABC9C' 
+easy_admin:
+  site_name: "<b>Back Office - Administrateur</b>"
+  design:
+    brand_color: 'blue'
     menu: 
-      - label: 'Blog' 
-        icon: 'newspaper-o' 
-        children: 
-          - {entity: 'Product', icon: 'folder-open', label: 'Products'} 
-          - {entity: 'Category', icon: 'folder-open', label: 'Catégories'} 
-        
-      - label: 'Accès' 
-        icon: 'user' 
-        children: 
+      - label: 'E-commerce'
+        icon: 'newspaper-o'
+        children:
+          - {entity: 'Product', icon: 'folder-open', label: 'Produits'}
+          - {entity: 'Category', icon: 'folder-open', label: 'Categories'}
+      - label: 'Administration'
+        icon: 'user'
+        children:
           - {entity: 'User', icon: 'folder-open', label: 'Utilisateurs'}
 
-  
-  entities: 
-    Product: 
-      class: App\Entity\Product
-      form: 
-        fields: 
-          - {property: 'title'}
-          - {property: 'content'}
-          - {property: 'imageFile', type: "file", label: "Ajouter une image"}
-          - {property: 'category'}
-          - {property: 'createdAt'}
-    Category: 
-      class: App\Entity\Category 
-      form: 
-        fields: 
-          - { property: 'title' }
-    User: 
-      class: App\Entity\User 
-      form: 
-        fields: 
-          - {property: 'email'}
-          - {property: 'username'}
-          - {property: 'lastname'}
-    # imports:
-    #   - { resource: admin/ }
-
+imports:
+  - {resource: admin/}

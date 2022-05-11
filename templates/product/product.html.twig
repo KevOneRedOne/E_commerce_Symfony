@@ -30,13 +30,18 @@
         {% for product in produits %}
             <div class="col-md-3">
                 <div class="card mb-4" style="width: 18rem; ">
+                    <img src="{{ asset('images/products/' ~ product.IMAGE)}}" class="" style="" alt="Image du produit">
                     <h3 class="card-header"> {{product.NAME}} </h3>
-                    <img src="{{product.IMAGE}}" alt="Image du produit">
                     <div class="card-body">
                         <p class="card-text text-end fw-bold">{{product.PRICE}}€</p>
                     </div>
                     <div class="card-body text-end">
                         <a href=" {{path('cart_add', {id: product.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
+                    </div>
+                    <div class="metadata">Ecrit le 
+                        {# {{product.updated_at | date("d/m/Y à H:i:s")}}  #}
+                        {# dans la catégorie {{product.category.title}} #}
+        
                     </div>
                 </div>
             </div>

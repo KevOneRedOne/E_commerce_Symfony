@@ -22,14 +22,19 @@
         }) }}
         {{ form_row(newProduct.category_id, {
             label: 'Catégorie'
-        }) }}
-        
-        {# <img src="{{ asset('images/produits/' ~ newProduct.imageFile)}}" alt=""> #}
-       
+        }) }} 
 
         <br>
         <div class="text-center">
-            <button type="submit" class="btn btn-lg btn-primary btn-block">Ajouter le produit</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">
+            
+                {% if editMode %}
+                    Enregistrer les modifications
+                {% else %}
+                    Ajouter le Produit
+                {% endif %}
+            
+            </button>
         </div>
 
     {{ form_end(newProduct) }}

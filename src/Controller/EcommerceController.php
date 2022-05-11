@@ -39,16 +39,24 @@ class EcommerceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->get('NAME')->getData();
-            $produits = $repo->getProductByName($data);
+            $product = $repo->getProductByName($data);
         } 
         else
         {
-            $produits = $repo->findBy(array(),array('NAME' => 'ASC'));
+            $product = $repo->findBy(array(),array('NAME' => 'ASC'));
         }
 
         return $this->render('product/product.html.twig', [
-            'produits' => $produits,
+            'produits' => $product,
             'SearchProductForm'=> $form->createView()
+        ]);
+    }
+
+    #[Route("/product/details/{id}", name:'app_details')]
+    public function detailsProduct(Product $product)
+    {
+        return $this-> render("detailsProduct.html.twig", [
+            'produits' => $product
         ]);
     }
 
@@ -85,16 +93,17 @@ class EcommerceController extends AbstractController
     // ----------------------------------------------------------------------------------
 
     #[Route('/product/newProduct', name: 'app_newProduct')]
+    #[Route('/product/edit/{id}', name: 'app_edit')]
     public function newProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null): Response
     {
         if (!$product) 
         {
             $product = new Product;
  
-            // $product -> setCreatedAt(new \DateTime());
+            $product -> setUpdatedAt(new \DateTime());
             // on ajoute la date à l'insertion
         }
-
+        dump($request);
 
         $product = new Product();
         $form = $this->createForm(AddProductType::class, $product);
@@ -105,11 +114,14 @@ class EcommerceController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_product');
+            return $this->redirectToRoute('app_product', [
+                'id' => $product->getId()
+            ]);
         }
 
         return $this->render('product/newProduct.html.twig', [
             'newProduct' => $form->createView(),
+            'editMode' => $product-> getId() !== null,
         ]);
     }
 }

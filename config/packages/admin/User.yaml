@@ -4,9 +4,9 @@ easy_admin:
       class: App\Entity\User
       form:
         fields:
-        - {property: 'email'}
-        - {property: 'usename'}
-        - {property: 'lastname'}
+        - {property: 'email', label: "Email"}
+        - {property: 'lastname', label: "Nom"}
+        - {property: 'username', label: "Prénom"}
         - {property: 'roles', type: "collection"}
 
 
@@ -16,7 +16,7 @@ easy_admin:
         - { name: "delete", icon: "trash", label: false, css_class: "btn btn-danger" }
         
         fields:
-        - {property: 'email'}
-        - {property: 'usename'}
-        - {property: 'lastname'}
+        - {property: 'email', label: "Email"}
+        - {property: 'lastname', label: "Nom"}
+        - {property: 'username', label: "Prénom"}
         - {property: 'roles'}
