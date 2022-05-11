@@ -81,8 +81,6 @@ class EcommerceController extends AbstractController
             $manager->flush();
             $cn->notify($contact);
             $this->addFlash('success', 'Votre message a bien été envoyé !');
-            // addflash() permet de créer des messages de notifications
-            // elle prend en param le type du msg et le contenu du msg
             return $this->redirectToRoute('app_contact'); 
         }
 
@@ -118,7 +116,6 @@ class EcommerceController extends AbstractController
 
         return $this->render('product/newProduct.html.twig', [
             'newProduct' => $form->createView(),
-            // 'editMode' => $product-> getId() !== null,
         ]);
     }
 
@@ -141,5 +138,4 @@ class EcommerceController extends AbstractController
             'editProduct' => $form->createView(),
         ]);
     }
-
 }
