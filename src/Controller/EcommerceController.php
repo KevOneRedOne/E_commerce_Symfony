@@ -64,32 +64,6 @@ class EcommerceController extends AbstractController
     }
 
     // ----------------------------------------------------------------------------------
-    // ----------------------------------CONTACT-----------------------------------------
-    // ----------------------------------------------------------------------------------
-    
-    #[Route("/contact", name: "app_contact")]
-    public function contact(Request $request, EntityManagerInterface $manager, ContactNotification $cn)
-    {
-        $contact = new Contact;
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $contact->setCREATEDAT(new \DateTime());
-            $manager->persist($contact);
-            $manager->flush();
-            $cn->notify($contact);
-            $this->addFlash('success', 'Votre message a bien été envoyé !');
-            return $this->redirectToRoute('app_contact'); 
-        }
-
-        return $this->render("contact/contact.html.twig", [
-            'formContact' => $form->createView()
-        ]);
-    }
-
-    // ----------------------------------------------------------------------------------
     // --------------------------------New PRODUCT---------------------------------------
     // ----------------------------------------------------------------------------------
 
@@ -119,6 +93,10 @@ class EcommerceController extends AbstractController
         ]);
     }
 
+    // ----------------------------------------------------------------------------------
+    // -----------------------------Edit Product-----------------------------------------
+    // ----------------------------------------------------------------------------------
+
     #[Route('/product/edit/{id}', name: 'app_edit')]
     public function editProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null, ?UserInterface $user): Response
     {
@@ -136,6 +114,48 @@ class EcommerceController extends AbstractController
         }
         return $this->render('product/editProduct.html.twig', [
             'editProduct' => $form->createView(),
+        ]);
+    }
+
+    // ----------------------------------------------------------------------------------
+    // ----------------------------------PROFIL------------------------------------------
+    // ----------------------------------------------------------------------------------
+
+    #[Route("/profil", name:"app_userprofil")]
+    public function userProfi(?UserInterface $user)
+    {
+        return $this->render('profil/user.html.twig', [
+            'controller_name' => 'EcommerceController',
+            'user' => $user
+        ]);
+    }
+
+
+
+
+    // ----------------------------------------------------------------------------------
+    // ----------------------------------CONTACT-----------------------------------------
+    // ----------------------------------------------------------------------------------
+    
+    #[Route("/contact", name: "app_contact")]
+    public function contact(Request $request, EntityManagerInterface $manager, ContactNotification $cn)
+    {
+        $contact = new Contact;
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $contact->setCREATEDAT(new \DateTime());
+            $manager->persist($contact);
+            $manager->flush();
+            $cn->notify($contact);
+            $this->addFlash('success', 'Votre message a bien été envoyé !');
+            return $this->redirectToRoute('app_contact'); 
+        }
+
+        return $this->render("contact/contact.html.twig", [
+            'formContact' => $form->createView()
         ]);
     }
 }
