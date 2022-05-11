@@ -96,7 +96,6 @@ class EcommerceController extends AbstractController
     // ----------------------------------------------------------------------------------
 
     #[Route('/product/newProduct', name: 'app_newProduct')]
-    #[Route('/product/edit/{id}', name: 'app_edit')]
     public function newProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null, ?UserInterface $user): Response
     {
         if (!$product) 
@@ -115,13 +114,35 @@ class EcommerceController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product', [
-                'id' => $product->getId()
+                // 'id' => $product->getId()
             ]);
         }
 
         return $this->render('product/newProduct.html.twig', [
             'newProduct' => $form->createView(),
-            'editMode' => $product-> getId() !== null,
+            // 'editMode' => $product-> getId() !== null,
         ]);
     }
+
+    #[Route('/product/edit/{id}', name: 'app_edit')]
+    public function editProduct(Request $request, EntityManagerInterface $entityManager, Product $product=null, ?UserInterface $user): Response
+    {
+        $form = $this->createForm(AddProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product->setUserId($user);
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_details', [
+                'id' => $product->getId()
+            ]);
+        }
+        return $this->render('product/editProduct.html.twig', [
+            'editProduct' => $form->createView(),
+            // 'editMode' => $product-> getId() !== null,
+        ]);
+    }
+
 }

@@ -1,45 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Produit{% endblock %}
+{% block title %}Vendre un produit {% endblock %}
 
 {% block body %}
-    <br>
-    <h1 class="text-center">
-        {% if editMode %}
-        Editer un produit
-        {% else %}
-        Vendre un produit
-    {% endif %}
-    </h1>
-    <br>
-
-    {{ form_start(newProduct) }}
-        {{form_row(newProduct.NAME, {
-            label:'Titre du produit'
-        })}}
-        {{form_row(newProduct.DESCRIPTION, {
-            label:'Description du produit'
-        })}}
-        {{ form_row(newProduct.PRICE, {
-            label: 'Prix'
-        }) }}
-        {{ form_row(newProduct.imageFile, {
-            label: 'Image'
-        }) }}
-        {{ form_row(newProduct.category_id, {
-            label: 'Catégorie'
-        }) }} 
+    <div class="container mt-3">
+        <h1 class="text-center mb-3">Vendre un produit</h1>
         <br>
-        <div class="text-center">
-            <button type="submit" class="btn btn-lg btn-primary btn-block">
-                {% if editMode %}
-                    Enregistrer les modifications
-                {% else %}
-                    Ajouter un Produit
-                {% endif %}
-            </button>
+        <div class="shadow-lg ml-5 mr-5 ombre p-3 rounded">
+            {{ form_start(newProduct) }}
+                {{form_row(newProduct.NAME, {
+                    label:'Nom du produit'
+                })}}
+                {{form_row(newProduct.DESCRIPTION, {
+                    label:'Description du produit'
+                })}}
+                {{ form_row(newProduct.PRICE, {
+                    label: 'Son prix'
+                }) }}
+                {{ form_row(newProduct.imageFile, {
+                    label: "Ajouter une image"
+                }) }}
+                {{ form_row(newProduct.category_id, {
+                    label: 'Sélectionner une catégorie'
+                }) }} 
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Ajouter le produit</button>
+                </div>
+                <br>
+            {{ form_end(newProduct) }}
         </div>
-
-    {{ form_end(newProduct) }}
+    </div>
+    <br>
 
 {% endblock %}

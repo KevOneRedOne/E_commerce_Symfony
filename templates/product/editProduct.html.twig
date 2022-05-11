@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un produit {% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1 class="text-center mb-3">Modifier le produit</h1>
+        <br>
+        <div class="shadow-lg ml-5 mr-5 ombre p-3 rounded">
+            {{ form_start(editProduct) }}
+                {{form_row(editProduct.NAME, {
+                    label:'Modifier le nom'
+                })}}
+                {{form_row(editProduct.DESCRIPTION, {
+                    label:'Modifier la description'
+                })}}
+                {{ form_row(editProduct.PRICE, {
+                    label: 'Modifier le prix'
+                }) }}
+                {{ form_row(editProduct.imageFile, {
+                    label: "Modifier l'image"
+                }) }}
+                {{ form_row(editProduct.category_id, {
+                    label: 'Modifier la catégorie'
+                }) }} 
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Enregistrer les modifications</button>
+                </div>
+                <br>
+            {{ form_end(editProduct) }}
+        </div>
+    </div>
+    <br>
+
+{% endblock %}

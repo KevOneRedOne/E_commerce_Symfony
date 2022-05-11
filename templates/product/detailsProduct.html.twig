@@ -25,7 +25,13 @@
                     Ecrit par <b>{{ produits.userID.username}}</b>
                     <small>le {{produits.updatedAt | date("d/m/Y à H:i:s")}}</small>
                 </div>
-                <a href=" {{path('cart_add', {id: produits.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
+                {% if app.user.id == produits.userID.id %}
+                    <a href=" {{path('app_edit', {id: produits.id})}}" class="card-link btn btn-primary">Editer le produit</a>
+                {% else %}
+                    <a href=" {{path('cart_add', {id: produits.id})}}" class="card-link btn btn-primary">Ajouter au panier</a>
+                {% endif %}
+                
+
             </div>
         </article>
     </section>
