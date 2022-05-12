@@ -2,22 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Contact;
 use App\Entity\Product;
-use App\Entity\User;
+use App\Entity\Comments;
 use App\Form\ContactType;
-use App\Form\SearchProductFormType;
-use Webmozart\Assert\Assert;
 use App\Form\AddProductType;
+use Webmozart\Assert\Assert;
+use App\Form\CommentFormType;
+use App\Repository\UserRepository;
+use App\Form\SearchProductFormType;
 use App\Repository\ProductRepository;
+use App\Repository\CommentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Notification\ContactNotification;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EcommerceController extends AbstractController
 {
@@ -55,12 +58,44 @@ class EcommerceController extends AbstractController
         ]);
     }
 
+    
+    // ----------------------------------------------------------------------------------
+    // --------------------------------Details + Comments--------------------------------
+    // ----------------------------------------------------------------------------------
+
     #[Route("/product/details/{id}", name:'app_details')]
-    public function detailsProduct(Product $product)
+    public function detailsProduct(Product $product, CommentsRepository $repo, Request $request)
     {
+        $commentaires = $repo->findBy(['product_id'=> $product->getId()]);
+
         return $this-> render("product/detailsProduct.html.twig", [
-            'produits' => $product
+            'produits' => $product,
+            'commentaires' => $commentaires
         ]);
+    }
+
+    #[Route("/product/newComments/{id}", name:'app_newComment')]
+    public function newComments(Request $request, EntityManagerInterface $entityManager, ?UserInterface $user, Product $product)
+    {
+        $commentaires = new Comments;
+        $form = $this->createForm(CommentFormType::class, $commentaires);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $commentaires->setUserId($user);
+            $commentaires->setProductId($product);   
+            $commentaires->setCreatedAt(new \DateTimeImmutable);
+            $entityManager->persist($commentaires);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_product');
+        }
+   
+        return $this->render('product/newComment.html.twig', [
+            "commentaireForm" => $form->createView(),
+            "produits" => $product,
+        ]);
+
     }
 
     // ----------------------------------------------------------------------------------
@@ -132,8 +167,6 @@ class EcommerceController extends AbstractController
             'produits' => $productsUser
         ]);
     }
-
-
 
 
     // ----------------------------------------------------------------------------------

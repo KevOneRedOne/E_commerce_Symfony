@@ -1,7 +1,10 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaire Produit{% endblock %}
 
 {% block body %}
-    <br>
+
+ <br>
     <h1 class="text-center">Fiche du Produit : "{{ produits.NAME }}"</h1>
     <br>
     <section class="row articles">
@@ -35,34 +38,22 @@
         </article>
     </section>
 
-    <h2 class="text-center mx-auto m-3">Commentaires</h2>
+    <h2 class="text-center mx-auto m-3">Commenter le produit</h2>
+
+    <section class="row articles">
+        <article class="col-md-8 mx-auto text-center shadow border-dark mb-4 p-4 mt-4 mr-1" style="border-radius:20px;">
+            {{ form_start(commentaireForm) }}
+                {{form_row(commentaireForm.CONTENT)}}
+                <button class="btn btn-primary" type="submit">
+                    Ajouter un commentaire
+                </button>
+            {{ form_end(commentaireForm) }}
+            {# <div class="text-center"> #}
+        </article>
     
-    <section id="commentaires" class="col-md-10 mx-auto">
-        <div class="col-md-8 mx-auto text-center shadow border-dark mb-10 p-4 mt-4 mr-1" style="border-radius:20px;">
-            {% for comment in commentaires %}
-                <div class="comment">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <b>{{comment.userID.username}}</b><br/> 
-                            (<small>{{comment.CREATEDAT|date('d/m/Y à H:i')}}</small>)
-                        </div>
-                        <div class="col-md-9 align-items-center">
-                            {{comment.CONTENT|raw}}
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            {% endfor %}
-            {% if app.user %} 
-                <div class="card-body text-center">
-                    <a href="{{ path('app_newComment', { id: produits.id}) }}" class="card-link btn btn-primary">Commenter le Produit</a>
-                </div>
-            {% else %}
-                <p class="nav-item text-center">Connectez-vous <a href="{{ path('app_login') }}">ici</a> pour faire un commentaire sur ce produit.</p>
-            {% endif %}
-        </div>
     </section>
 
+{# <h1>Commenter le produit</h1>  #}
 
 
 {% endblock %}

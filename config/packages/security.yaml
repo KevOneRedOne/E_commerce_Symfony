@@ -46,9 +46,11 @@ security:
         ROLE_ADMIN : ROLE_USER
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/emails, roles: ROLE_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
         - { path: ^/product/newProduct, roles: ROLE_USER }
         - { path: ^/product/editProduct, roles: ROLE_USER }
+        - { path: ^/product/newComment, roles: ROLE_USER }
     access_denied_url: /login
 
 
