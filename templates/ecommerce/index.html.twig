@@ -3,13 +3,14 @@
 {% block title %}E_commerce{% endblock %}
     
 {% block body %} 
+    <div class="container mT-3">
 
-    <br>
-    <h1 class="text-center">Bienvenue !</h1>
-    <hr>
-    <h3 class="text-center">ADIBOU est le site de e-commerce de référence en France ! </h3>
-    <br>
-    <section class="row articles">
+        <br>
+        <h1 class="text-center">Bienvenue !</h1>
+        <hr>
+        <h3 class="text-center">ADIBOU est le site de e-commerce de référence en France ! </h3>
+        <br>
+     <section class="row articles">
         <article class="col-md-8 mx-auto text-center shadow border-dark mb-4 p-4 mt-4 mr-1" style="border-radius:20px;">
             <img src="https://images.pexels.com/photos/5632386/pexels-photo-5632386.jpeg" class="img-fluid" alt="Stony Beach"/>
      
@@ -21,8 +22,9 @@
                 <a href=" {{path('app_product')}}" class="card-link btn btn-primary">Voir nos produits</a>
             </div>
         </article>
-    </section>
+     </section>
     
+    </div>
 
 
 {% endblock %}
