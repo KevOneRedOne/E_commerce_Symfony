@@ -7,6 +7,7 @@ easy_admin:
         fields:
         - {property: 'name', label: 'Nom'}
         - {property: 'description', label: 'Description'}
+        - {property: 'price', label: 'Prix'}
         - {property: 'imageFile', type: "file", label: "Ajouter une image"}
         - {property: 'category_id', label: "Catégorie"}
         - {property: 'user_id', label: "Posté par :"}
@@ -20,6 +21,7 @@ easy_admin:
         fields:
           - {property: 'name', label: 'Nom'}
           - {property: 'description', label: 'Description'}
+          - {property: 'price', label: 'Prix'}
           - {property: 'image', type: "image", base_path: "images/products/", label: "Image"}
           - {property: 'category_id', label: 'Catégorie'}
           - {property: 'user_id', label: "Posté par :"}
